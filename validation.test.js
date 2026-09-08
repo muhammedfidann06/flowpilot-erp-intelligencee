@@ -2,10 +2,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { validateData, isISODate } from "../dist/src/data.js";
-import { deliveryStats, weeklyRevenue, toCSV } from "../dist/src/engine.js";
+import { validateData, isISODate } from "../src/data.js";
+import { deliveryStats, weeklyRevenue, toCSV } from "../src/engine.js";
 const source = JSON.parse(
-  readFileSync(new URL("../dist/data.json", import.meta.url), "utf8"),
+  readFileSync(new URL("../data.json", import.meta.url), "utf8"),
 );
 function rejects(name, edit) {
   test(name, () => {
@@ -139,7 +139,7 @@ for (const prefix of ["=", "+", "-", "@", " =", "\t=", "\n@", "\uFEFF="])
   });
 
 test("action IDs use full cryptographic entropy and do not require randomUUID", async () => {
-  const { createActionId } = await import("../dist/src/data.js");
+  const { createActionId } = await import("../src/data.js");
   const id = createActionId();
   assert.match(id, /^ACT-[0-9a-f]{32}$/);
   assert.notEqual(id, createActionId());

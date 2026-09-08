@@ -183,7 +183,7 @@ for (let i = 0; i < 120; i++) {
 }
 // This snapshot is deliberately dated: no claim that synthetic data describes today's business.
 writeFileSync(
-  new URL("../dist/data.json", import.meta.url),
+  new URL("../data.json", import.meta.url),
   JSON.stringify(
     {
       meta: {

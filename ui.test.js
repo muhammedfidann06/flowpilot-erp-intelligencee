@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { JSDOM } from "jsdom";
 const data = JSON.parse(
-  readFileSync(new URL("../dist/data.json", import.meta.url), "utf8"),
+  readFileSync(new URL("../data.json", import.meta.url), "utf8"),
 );
 const dom = new JSDOM(
   '<!doctype html><html><body><div id="app"></div><div id="toast"></div><dialog id="dialog"></dialog></body></html>',
@@ -30,7 +30,7 @@ globalThis.fetch = async () => ({
   ok: true,
   json: async () => structuredClone(data),
 });
-await import("../dist/src/main.js");
+await import("../src/main.js");
 await new Promise((resolve) => setTimeout(resolve, 20));
 const $ = (q) => document.querySelector(q);
 const click = (q) => {

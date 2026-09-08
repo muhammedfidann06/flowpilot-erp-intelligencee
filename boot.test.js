@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { JSDOM } from "jsdom";
 const source = JSON.parse(
-  readFileSync(new URL("../dist/data.json", import.meta.url), "utf8"),
+  readFileSync(new URL("../data.json", import.meta.url), "utf8"),
 );
 async function start(name, fetcher) {
   const dom = new JSDOM(
@@ -21,7 +21,7 @@ async function start(name, fetcher) {
   ])
     globalThis[key] = dom.window[key];
   globalThis.fetch = fetcher;
-  await import("../dist/src/main.js?boot=" + name);
+  await import("../src/main.js?boot=" + name);
   await new Promise(setImmediate);
   return dom;
 }

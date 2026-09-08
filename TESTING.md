@@ -1,6 +1,6 @@
-# FlowPilot v1.0.1 — Doğrulama raporu
+# FlowPilot v1.1.0 — Doğrulama raporu
 
-Son paket kontrolü: **8 Eylül 2026**. Tarayıcı incelemeleri 7 Eylül 2026'da yapıldı. Sentetik veri anlık tarihi 30 Eylül 2026'dır.
+Son paket kontrolü: **8 Eylül 2026**. Önceki kapsamlı tarayıcı incelemesi 7 Eylül; yayın düzeltmesi ve PWA arayüzü incelemesi 8 Eylül 2026’da yapıldı. Sentetik veri anlık tarihi 30 Eylül 2026'dır.
 
 ## Tekrarlanabilir otomatik testler
 
@@ -11,12 +11,15 @@ Son paket kontrolü: **8 Eylül 2026**. Tarayıcı incelemeleri 7 Eylül 2026'da
 | DOM etkileşimleri                  |      13 | 10 ekran × 3 dil, tablolar, filtreler, sütunlar, arama, aksiyon döngüsü, bildirim, dönem, sekme klavyesi, dialog etiketi, mobil menü, CSV boş değer, depolama hatası |
 | Yükleme / kurtarma                 |       3 | HTTP hatası → tekrar dene → düzelme; bozuk veride hata ekranı; boş veriyle 10 ekran                                                                                  |
 | Gerçek HTTP API                    |       4 | Kaynaklar, sayfalama, filtre, tekil kayıt, hatalı sorgu, 404, salt okunur yöntemler, health ve OpenAPI                                                               |
-| **Toplam**                         | **198** | Son pakette tümü geçti                                                                                                                                               |
+| PWA davranışı                      |      11 | Çevrimdışı shell/veri, kapsam izolasyonu, eksik önbellek, güncelleme onayı, diller, bağlantı ve kurulum olayları                                                     |
+| Statik yayın HTTP                  |       4 | Kök ve dist × alan adı kökü ve depo alt yolu; gerçek dosya yanıtları, MIME ve 404                                                                                    |
+| **Toplam**                         | **213** | Son pakette tümü geçti                                                                                                                                               |
 
-Ayrıca `npm run validate`: JavaScript sözdizimi, kök / dist girişleri, göreli kaynak yolları, çeviri anahtarları, veri ilişkileri ve anlık tarih sınırları doğrulanır. Bunlar 198 sayısına dahil değildir. Testler aynı senaryonun 100 kez tekrarı değildir; farklı davranışları ve geçersiz girdileri kapsar.
+Ayrıca `npm run validate`: JavaScript sözdizimi, kök / dist girişleri, göreli kaynak yolları, çeviri anahtarları, veri ilişkileri ve anlık tarih sınırları doğrulanır. Bunlar 213 sayısına dahil değildir. Testler aynı senaryonun 100 kez tekrarı değildir; farklı davranışları ve geçersiz girdileri kapsar.
 
 ```bash
 npm ci
+npm run build
 npm run validate
 npm test
 python -m unittest discover -s tests -p 'test_*.py' -v
@@ -53,3 +56,12 @@ Node 24 ortamında çalıştırıldı; Node 22.12+ gereksinimi ve Node 22 CI yap
 - Kullanıcının GitHub hesabında yayın yapılmadı. GitHub Pages ayarları hesapta etkinleştirilmelidir; paket tek başına hesabın ayarlarını değiştiremez.
 - `npm audit` incelemesinde bildirilen açık bulunmadı. Bu, uygulamanın güvenlik denetimi veya gelecekte yeni açık bulunmayacağı garantisi değildir.
 - Gerçek SAP bağlantısı, çok kullanıcılı auth ve merkezi aksiyon kaydı bu sentetik portföy sürümünün kapsamında değildir.
+
+## v1.1.0 yayın ve PWA kontrolü
+
+- Yayındaki HTML 200, dist/src/styles.css ve dist/src/main.js 404: kaynağın yüklenemediği doğrudan HTTP ile doğrulandı. Kullanıcı hesabındaki dosya yükleme geçmişi incelenmedi; dosyaların neden eksik olduğu varsayılmadı.
+- Yeni kök girişinin CSS, JS, JSON, manifest, SW ve ikonları HTTP testinde `/` ve `/flowpilot-erp-intelligence/` altında 200; bilinmeyen dosya 404. Aynı kontrol dist çıktısında da geçti.
+- PNG boyutları, manifest göreli yolları ve root/dist tüm dosya denkliği doğrulandı.
+- Güncel Chrome önizlemesinde TR/EN/DE PWA metinleri ve masaüstü tasarım kontrol edildi. 390 px iframe içinde belge genişliği ile kaydırma genişliği 375 px eşit: taşma yok.
+- Service worker yaşam döngüsü ve çevrimdışı yanıtlar gerçek kaynak kodunu VM içinde çalıştırarak test edildi. Bu ortamın önizleme adresi güvenli bağlam olmadığından gerçek Chrome service-worker kurulumu ve uçak modunda yeniden açılış doğrulanmadı. Fiziksel Android/iOS yükleme ve güncelleme testleri yapılmadı.
+- Yeni sürüm kullanıcının GitHub hesabına gönderilmedi; canlı site üzerinde düzeltme uygulanmış sayılmamalıdır.

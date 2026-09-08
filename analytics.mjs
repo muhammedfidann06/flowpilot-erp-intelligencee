@@ -1,8 +1,8 @@
 /** Materialize analytics from the same JavaScript engine used by the client: no duplicated Python formulas. */
 import { readFileSync, writeFileSync } from "node:fs";
-import { insights, metrics, inventoryRow } from "../dist/src/engine.js";
+import { insights, metrics, inventoryRow } from "../src/engine.js";
 const data = JSON.parse(
-  readFileSync(new URL("../dist/data.json", import.meta.url), "utf8"),
+  readFileSync(new URL("../data.json", import.meta.url), "utf8"),
 );
 const result = Object.fromEntries(
   ["2026-08", "2026-09"].map((period) => [

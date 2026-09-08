@@ -20,18 +20,18 @@ flowchart TD
 
 | Katman             | Dosya                   | Karar                                                                                          |
 | ------------------ | ----------------------- | ---------------------------------------------------------------------------------------------- |
-| Sunum              | `dist/src/main.js`      | HTML üreten ortak UI fonksiyonları ve delegasyonla olay yönetimi; hash tabanlı ekran geçişleri |
-| Tasarım sistemi    | `dist/src/styles.css`   | Renk / boşluk / radius tokenları, ortak tablo ve form stili; breakpoint ile yeniden düzenleme  |
-| Yerelleştirme      | `dist/src/i18n.js`      | Anahtar bazlı üç sözlük; işletme kuralları dilden bağımsız                                     |
-| Uygulama analitiği | `dist/src/engine.js`    | Girdi → çıktı saf fonksiyonları; DOM, ağ ve yerel depolama erişimi yok                         |
-| Veri sınırı        | `dist/src/data.js`      | JSON alma, ilişki / alan doğrulama; tarayıcı depolama hata yönetimi                            |
+| Sunum              | `src/main.js`           | HTML üreten ortak UI fonksiyonları ve delegasyonla olay yönetimi; hash tabanlı ekran geçişleri |
+| Tasarım sistemi    | `src/styles.css`        | Renk / boşluk / radius tokenları, ortak tablo ve form stili; breakpoint ile yeniden düzenleme  |
+| Yerelleştirme      | `src/i18n.js`           | Anahtar bazlı üç sözlük; işletme kuralları dilden bağımsız                                     |
+| Uygulama analitiği | `src/engine.js`         | Girdi → çıktı saf fonksiyonları; DOM, ağ ve yerel depolama erişimi yok                         |
+| Veri sınırı        | `src/data.js`           | JSON alma, ilişki / alan doğrulama; tarayıcı depolama hata yönetimi                            |
 | HTTP adaptörü      | `backend/server.py`     | Sadece mock okuma, doğrulanan sorgu, sayfalama, OpenAPI                                        |
 | Örnek veri         | `scripts/generate.mjs`  | Deterministik üreteç; ilişkili kimlikler, tarihler, stok ve gecikme senaryoları                |
 | Analiz önhesaplama | `scripts/analytics.mjs` | UI ve API için tek hesaplama kaynağı                                                           |
 
 ## 2. Çalışma zamanı ve yayın
 
-İstemci derlenmeden yayınlanır. Npm paketleri sadece test ve biçimlendirme içindir; tarayıcıya gönderilmez. Kök `index.html`, `dist/src/` kaynaklarını kullanır; bağımsız `dist/index.html` ise aynı dizindeki `src/` klasörünü kullanır. Giriş dosyalarının denkliği `npm run validate` ile kontrol edilir.
+İstemci derlenmeden yayınlanır. Npm paketleri sadece test ve biçimlendirme içindir; tarayıcıya gönderilmez. Kök `index.html`, `src/` kaynaklarını kullanır; bağımsız `dist/index.html` ise aynı dizindeki `src/` klasörünü kullanır. Kök dosyalar tek kaynak kabul edilir; `npm run build` aynı dosyaları `dist/` içine kopyalar ve içerik özetli service worker üretir. `dist/` elle düzenlenmez. Tüm yayın dosyalarının byte denkliği `npm run validate` ile kontrol edilir.
 
 Hash tabanlı yönlendirme GitHub Pages üzerinde sunucu rewrite ihtiyacını ortadan kaldırır. Dizin adı veya kullanıcı adı kod içine yazılmamıştır. Veriler `import.meta.url` temelinde yüklenir; alt dizinli yayın korunur.
 

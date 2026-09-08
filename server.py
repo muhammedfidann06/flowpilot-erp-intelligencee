@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = json.loads((ROOT / 'dist/data.json').read_text(encoding='utf-8'))
+DATA = json.loads((ROOT / 'data.json').read_text(encoding='utf-8'))
 ANALYTICS = json.loads((ROOT / 'backend/analytics.json').read_text(encoding='utf-8'))
 RESOURCES = {'suppliers': 'suppliers', 'products': 'products', 'customers': 'customers',
              'orders': 'orders', 'purchase-orders': 'purchaseOrders', 'deliveries': 'deliveries'}

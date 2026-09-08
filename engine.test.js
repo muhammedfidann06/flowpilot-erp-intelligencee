@@ -2,8 +2,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { validateData } from "../dist/src/data.js";
-import { dictionary } from "../dist/src/i18n.js";
+import { validateData } from "../src/data.js";
+import { dictionary } from "../src/i18n.js";
 import {
   metrics,
   insights,
@@ -15,9 +15,9 @@ import {
   previousPeriod,
   weeklyRevenue,
   sum,
-} from "../dist/src/engine.js";
+} from "../src/engine.js";
 const data = JSON.parse(
-  readFileSync(new URL("../dist/data.json", import.meta.url), "utf8"),
+  readFileSync(new URL("../data.json", import.meta.url), "utf8"),
 );
 test("fixture is relational and meets promised entity volumes", () => {
   validateData(data);

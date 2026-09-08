@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 — 2026-09-08
+
+- Fixed Pages asset layout: canonical root src/data, generated identical dist, no root dependency on dist paths.
+- Added install manifest, PNG/maskable/Apple icons, scoped atomic offline cache and opt-in updates.
+- Added TR/EN/DE PWA guidance and connection states.
+- Added 15 regression tests for publishing and PWA; 213 total Node/Python tests.
+- Updated deployment, architecture and verification documentation.
+
 ## 1.0.1 — 2026-09-08
 
 - Fixed action creation in non-secure local HTTP previews using cryptographic random bytes.

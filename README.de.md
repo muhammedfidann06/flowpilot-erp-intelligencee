@@ -4,7 +4,7 @@ FlowPilot ist eine funktionsfähige Portfolio-Anwendung zur Analyse von ERP-Betr
 
 ## Start und Veröffentlichung
 
-ZIP entpacken und den Inhalt in das Stammverzeichnis des Repositories hochladen. `index.html` muss neben `dist/` liegen. Unter **GitHub Settings → Pages** die Quelle **Deploy from a branch → main → / (root)** wählen. Für die statische Website sind weder Node noch Python, API-Schlüssel oder Datenbank erforderlich. Der optionale manuelle Pages-Workflow veröffentlicht nur `dist/`.
+ZIP entpacken und den Inhalt in das Stammverzeichnis des Repositories hochladen. `index.html` muss neben `src/`, `icons/`, `data.json`, `manifest.webmanifest` und `sw.js` liegen. Unter **GitHub Settings → Pages** die Quelle **Deploy from a branch → main → / (root)** wählen. Für die statische Website sind weder Node noch Python, API-Schlüssel oder Datenbank erforderlich. Der optionale manuelle Pages-Workflow veröffentlicht nur `dist/`.
 
 Lokal im Projektverzeichnis `python -m http.server 8080` ausführen und `http://localhost:8080` öffnen. HTML nicht per `file://` starten.
 
@@ -30,6 +30,10 @@ Umsatz wird nach tatsächlichem Lieferdatum ausgewertet. Termintreue verwendet a
 
 ## Qualität und Grenzen
 
-Prüfung: `npm ci`, `npm run validate`, `npm test` und `python -m unittest discover -s tests -p 'test_*.py' -v`. Der [Testbericht](TESTING.md) dokumentiert die Abdeckung. DOM-Tests ersetzen keine visuellen Browserprüfungen. Die Desktopansicht und ein 390-px-Rahmen wurden in Chrome einschließlich Maßnahmenspeicherung geprüft. Docker und PostgreSQL wurden nicht ausgeführt. TESTING.md dokumentiert 198 automatische Tests und weitere Grenzen.
+Prüfung: `npm ci`, `npm run build`, `npm run validate`, `npm test` und `python -m unittest discover -s tests -p 'test_*.py' -v`. Der [Testbericht](TESTING.md) dokumentiert die Abdeckung. DOM-Tests ersetzen keine visuellen Browserprüfungen. Die Desktopansicht und ein 390-px-Rahmen wurden in Chrome einschließlich Maßnahmenspeicherung geprüft. Docker und PostgreSQL wurden nicht ausgeführt. TESTING.md dokumentiert 213 automatische Tests und weitere Grenzen.
 
 Produktive Anmeldung, Mandantentrennung, echte SAP-Anbindung, zentrale Maßnahmenspeicherung und Live-Synchronisierung sind nicht implementiert. Keine vertraulichen ERP-Daten in den öffentlichen statischen Datensatz aufnehmen. Die [türkische Hauptdokumentation](../README.md) enthält alle Formeln und technischen Einzelheiten.
+
+## PWA in v1.1.0
+
+Diese Version korrigiert fehlende Ressourcenpfade und ergänzt ein Manifest mit relativem Geltungsbereich, PNG-/Maskable-Symbole, Offlinezugriff auf App und Demodaten, Installationshinweise und bestätigte Updates. Nach erfolgreichem erstmaligem Online-Caching lässt sich die App offline öffnen. HTTPS oder localhost ist erforderlich. Die Installation auf physischen Geräten wurde nicht getestet. Quelldateien im Stammverzeichnis bearbeiten, `npm run build` ausführen und auch `sw.js` und `dist/` committen. Alle entpackten Dateien hochladen, nicht nur index.html. Siehe [PWA-Details](PWA.md).

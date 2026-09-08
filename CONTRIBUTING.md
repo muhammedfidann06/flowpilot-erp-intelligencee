@@ -13,7 +13,7 @@ Node.js 22+ ve Python 3.10+ kullanın. `npm ci` kilit dosyasındaki test / biçi
 5. Tarihleri ISO tarih ve UTC ile değerlendirin. Gelir, sipariş ve teslimat dönem temellerini açık tutun.
 6. Hesaplama, veri şeması veya gerçek kullanıcı akışı değişiyorsa davranışsal test ekleyin. Sadece CSS değişikliği için uygulamayı tekrar eden test üretmeyin.
 7. Veri üretimi değiştiğinde `npm run generate` ile JSON ve analitik anlık sonuçları birlikte güncelleyin.
-8. `dist/index.html` değişirse kök `index.html` eşini güncelleyin: yalnızca `./src/` yolları `./dist/src/` olmalı.
+8. Yalnızca kökteki kaynakları düzenleyin. Her değişiklikten sonra `npm run build` çalıştırın; `dist/` ve `sw.js` üretilir. Kaynaklarla beraber güncel üretilen dosyaları da commit edin.
 9. Gerçek müşteri / ERP verisi, `.env`, parola, token ve tarayıcı aksiyon notlarını commit etmeyin.
 
 ## Doğrulama

@@ -22,13 +22,13 @@ FlowPilot aşağıdaki izlenebilir akışı uygular:
 
 ## Hızlı yayın: ZIP'ten GitHub Pages'e
 
-1. ZIP'i bilgisayarında çıkar. **ZIP dosyasını yüklemek yerine içindeki dosya ve klasörleri yükle.** `index.html`, `README.md`, `dist/` ve diğer proje dosyaları repo kökünde olmalı; fazladan bir üst klasör içinde kalmamalı.
+1. ZIP'i bilgisayarında çıkar. **ZIP dosyasını yüklemek yerine içindeki dosya ve klasörleri yükle.** `index.html`, `src/`, `icons/`, `data.json`, `manifest.webmanifest`, `sw.js` ve diğer proje dosyaları repo kökünde olmalı; fazladan bir üst klasör içinde kalmamalı.
 2. GitHub'da örneğin `flowpilot` adlı bir public repository oluştur ve dosyaları `main` dalına yükle.
 3. **Settings → Pages → Build and deployment → Source → Deploy from a branch** seç.
 4. Dal: **main**, klasör: **/ (root)** seç ve kaydet.
 5. GitHub'ın oluşturduğu Pages adresini aç. Repo adının `flowpilot` olması zorunlu değildir; tüm uygulama dosyaları göreli yollar kullanır.
 
-Node, Python, veritabanı veya API anahtarı web sitesini yayınlamak için gerekmez. Repo kökündeki giriş dosyası `dist/src/` içindeki kaynakları kullanır. Hash tabanlı gezinme sayesinde `#inventory` gibi bağlantılar yenilendiğinde özel sunucu yönlendirmesi gerekmez.
+Node, Python, veritabanı veya API anahtarı web sitesini yayınlamak için gerekmez. Repo kökündeki giriş dosyası `src/` içindeki kaynakları kullanır. Hash tabanlı gezinme sayesinde `#inventory` gibi bağlantılar yenilendiğinde özel sunucu yönlendirmesi gerekmez.
 
 GitHub'ın resmi açıklaması: [Publishing source yapılandırması](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). Menü adları İngilizce GitHub arayüzüne göredir; kontrol tarihi 7 Eylül 2026.
 
@@ -37,6 +37,20 @@ GitHub'ın resmi açıklaması: [Publishing source yapılandırması](https://do
 Kök klasördeki geliştirme belgelerinin de statik olarak sunulmasını istemiyorsan, **Settings → Pages → Source → GitHub Actions** seç. Ardından **Actions → Publish FlowPilot to Pages → Run workflow** çalıştır. Bu yöntem yalnızca `dist/` klasörünü yayınlar ve önce testleri çalıştırır. Sağlanan yayın workflow'u manuel tetiklenir; otomatik yayın davranışı yoktur. CI workflow'u `main` push ve pull request üzerinde otomatik çalışır.
 
 GitHub web yüklemesinde noktayla başlayan `.github/` klasörü gizli kalabilir. Branch üzerinden hızlı yayın için gerekli değildir; CI ve Actions istiyorsan bu klasörün de repoda bulunduğunu doğrula.
+
+## v1.1.0: yayın düzeltmesi ve PWA
+
+8 Eylül 2026 kontrolünde yayınlanan HTML 200, çağırdığı `dist/src/styles.css` ve `dist/src/main.js` dosyaları 404 döndü. Bu nedenle sayfa yükleniyor metninde kalıyordu. Yeni paket kökte doğrudan `src/` kullanır; kaynak ve yayın klasörü yapısı aynıdır. Hem kök alan adı hem `/flowpilot-erp-intelligence/` alt yolu HTTP testleriyle kontrol edilir.
+
+**Güncelleme:** ZIP'in tamamını çıkarıp içeriğini mevcut deponun köküne yükle; aynı isimli dosyaları yeni sürümle değiştir. Yalnızca `index.html` yükleme. GitHub dosya listesinde `src/`, `icons/`, `data.json`, `manifest.webmanifest` ve `sw.js` görünmelidir. Branch yayını için Pages kaynağı `main / (root)` olmalı. Actions yayını seçiliyse bu paketin manuel yayın workflow'unu çalıştır. Yayın tamamlandıktan sonra sayfayı Ctrl+Shift+R ile aç. Footer'da **v1.1.0** görünür.
+
+- Kurulabilir manifest, bağımsız pencere, 192/512 PNG ikonları, maskable ikon ve Apple dokunmatik ikonu.
+- Sayfa altındaki **Uygulama ve çevrimdışı erişim** bölümünde TR/EN/DE kurulum yönergeleri; tarayıcı uygunluk olayı verdiğinde yükleme düğmesi.
+- İlk başarılı çevrimiçi önbelleklemeden sonra uygulama, grafikler, tablolar ve demo JSON verisi çevrimdışı açılabilir. Aksiyonlar aynı tarayıcının yerel depolamasında kalır; sunucuya senkronize edilmez.
+- Bağlantı kaybı bildirimi ve hazır olduğunda kullanıcı onayıyla sürüm güncelleme. Açık formu kaydettikten sonra **Kaydettim, güncelle** seçilir.
+- Her yayın için içerik özetli önbellek. Aynı GitHub alanındaki başka depoların önbelleğine dokunulmaz. Yeni sürümün tek dosyası bile eksikse eksik sürüm etkinleştirilmez.
+
+Kurulum ve service worker için HTTPS veya localhost gerekir; `file://` ile çalıştırma. İlk çevrimdışı ziyaret desteklenmez. Tarayıcı depolamayı silebilir; bu bir yedekleme sistemi değildir. PWA ekleri mağaza paketi, push servisi veya SAP senkronizasyonu sağlamaz. Ayrıntılar: [PWA teknik rehberi](docs/PWA.md).
 
 ## Yerel çalıştırma
 
@@ -140,12 +154,12 @@ React / Next.js, FastAPI ve PostgreSQL başlangıç metninde tercih olarak veril
 | ------------------------ | --------------------------------------------------------------------------------- |
 | `index.html`             | GitHub Pages branch / root giriş dosyası                                          |
 | `dist/index.html`        | Bağımsız statik yayın girişi                                                      |
-| `dist/src/main.js`       | Sayfalar, yeniden kullanılan sunum bileşenleri, olaylar ve yerel aksiyon akışı    |
-| `dist/src/engine.js`     | KPI, risk, filtre ve CSV iş kuralları                                             |
-| `dist/src/data.js`       | Veri doğrulama / yükleme; tarayıcı kayıt sınırı                                   |
-| `dist/src/i18n.js`       | Türkçe, İngilizce, Almanca ürün metinleri                                         |
-| `dist/src/styles.css`    | Tasarım tokenları, ortak bileşenler, responsive / print / reduced-motion stilleri |
-| `dist/data.json`         | Birbiriyle ilişkili sentetik kaynak kayıtlar                                      |
+| `src/main.js`            | Sayfalar, yeniden kullanılan sunum bileşenleri, olaylar ve yerel aksiyon akışı    |
+| `src/engine.js`          | KPI, risk, filtre ve CSV iş kuralları                                             |
+| `src/data.js`            | Veri doğrulama / yükleme; tarayıcı kayıt sınırı                                   |
+| `src/i18n.js`            | Türkçe, İngilizce, Almanca ürün metinleri                                         |
+| `src/styles.css`         | Tasarım tokenları, ortak bileşenler, responsive / print / reduced-motion stilleri |
+| `data.json`              | Birbiriyle ilişkili sentetik kaynak kayıtlar                                      |
 | `backend/server.py`      | Opsiyonel salt okunur mock ERP API                                                |
 | `backend/analytics.json` | Aynı analiz motorundan üretilen API anlık sonuçları                               |
 | `backend/openapi.json`   | API sözleşmesi                                                                    |
@@ -163,6 +177,7 @@ Node.js 22.12+ ve Python 3.10+ gerekir. npm yalnızca geliştirme / test araçla
 
 ```bash
 npm ci
+npm run build
 npm run validate
 npm test
 python -m unittest discover -s tests -p 'test_*.py' -v
@@ -205,7 +220,7 @@ Gerçek Chrome tarayıcısında masaüstü görünümü, 390 px genişliğindeki
 
 ![FlowPilot gerçek masaüstü ekranı](docs/screenshots/overview.jpg)
 
-Güncel kapsam ve sınırlar [test raporunda](docs/TESTING.md). **v1.0.1 toplam 198 otomatik test içerir.**
+Güncel kapsam ve sınırlar [test raporunda](docs/TESTING.md). **v1.1.0 toplam 213 otomatik test içerir (209 Node + 4 Python).**
 
 ## Gelecek geliştirmeler
 

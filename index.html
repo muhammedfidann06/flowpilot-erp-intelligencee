@@ -13,19 +13,38 @@
       content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
     />
     <title>FlowPilot — Operations Intelligence</title>
-    <link rel="icon" href="./dist/src/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./dist/src/styles.css" />
-    <script type="module" src="./dist/src/main.js"></script>
+    <link rel="icon" href="./src/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/pwa.js"></script>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
   </head>
   <body>
     <a class="skip" href="#main">İçeriğe geç / Skip to content / Zum Inhalt</a>
     <div id="app">
       <div class="boot" role="status">
         FlowPilot · Yükleniyor / Loading / Wird geladen…
+        <p>
+          Uzun sürüyorsa sayfayı yenileyin. / If loading stalls, reload the
+          page. / Falls das Laden stockt, laden Sie die Seite neu.
+        </p>
+        <details>
+          <summary>
+            Yayın kontrolü / Deployment check / Bereitstellung prüfen
+          </summary>
+          <p>
+            index.html, src/ ve data.json aynı klasörde bulunmalıdır. / Keep
+            index.html, src/ and data.json in the same folder. / index.html,
+            src/ und data.json müssen im selben Ordner liegen.
+          </p>
+        </details>
       </div>
     </div>
     <div id="toast" role="status" aria-live="polite"></div>
     <dialog id="dialog"></dialog>
+    <aside id="pwa" aria-label="PWA"></aside>
     <noscript
       >FlowPilot için JavaScript gerekli. JavaScript is required. JavaScript ist
       erforderlich.</noscript

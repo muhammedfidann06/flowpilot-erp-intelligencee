@@ -4,7 +4,7 @@ FlowPilot is a working ERP operations intelligence portfolio application with Tu
 
 ## Run and publish
 
-Extract the ZIP and upload its contents to your repository root. `index.html` must be at the root, alongside `dist/`. In GitHub **Settings → Pages**, choose **Deploy from a branch → main → / (root)**. No Node, Python, API key or database is required for the static website. The alternate manual Pages workflow publishes only `dist/`.
+Extract the ZIP and upload its contents to your repository root. `index.html` must be at the root, alongside `src/`, `icons/`, `data.json`, `manifest.webmanifest` and `sw.js`. In GitHub **Settings → Pages**, choose **Deploy from a branch → main → / (root)**. No Node, Python, API key or database is required for the static website. The alternate manual Pages workflow publishes only `dist/`.
 
 For local use, run `python -m http.server 8080` from the project root and open `http://localhost:8080`. Do not open the HTML through `file://`.
 
@@ -30,6 +30,10 @@ Revenue is recognized by actual delivery date. OTD is calculated over completed 
 
 ## Quality and limits
 
-Run `npm ci`, `npm run validate`, `npm test`, and `python -m unittest discover -s tests -p 'test_*.py' -v`. See [testing](TESTING.md) for actual coverage. DOM tests do not prove visual layout or native browser focus behavior. Chrome desktop and a 390 px mobile frame were inspected, including action persistence. Docker and PostgreSQL execution were not verified. See TESTING.md for the 198 automated checks and remaining boundaries.
+Run `npm ci`, `npm run build`, `npm run validate`, `npm test`, and `python -m unittest discover -s tests -p 'test_*.py' -v`. See [testing](TESTING.md) for actual coverage. DOM tests do not prove visual layout or native browser focus behavior. Chrome desktop and a 390 px mobile frame were inspected, including action persistence. Docker and PostgreSQL execution were not verified. See TESTING.md for the 213 automated checks and remaining boundaries.
 
 No production authentication, multi-tenant isolation, real SAP connectivity, central task storage or live data synchronization is implemented. Never put confidential ERP data into the public static dataset. The [main README](../README.md) provides full formulas, module descriptions and deployment details.
+
+## PWA in v1.1.0
+
+The release fixes missing asset paths and adds a relative-scope manifest, PNG/maskable icons, offline shell and demo data, install guidance, and user-confirmed updates. After the first successful online cache, the app can reopen offline. Use HTTPS or localhost. Device installation varies by browser and has not been physically tested. Edit root sources, run `npm run build`, and commit the generated `sw.js` and `dist/` too. Upload all extracted files, not only index.html. See [PWA details](PWA.md).

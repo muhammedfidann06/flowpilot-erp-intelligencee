@@ -1,6 +1,6 @@
 {
   "name": "flowpilot",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "Explainable ERP operations intelligence, portable to GitHub Pages",
@@ -8,8 +8,9 @@
     "test": "node --test tests/*.test.js",
     "validate": "node scripts/validate.mjs",
     "generate": "node scripts/generate.mjs && node scripts/analytics.mjs",
-    "format": "prettier --write \"dist/src/*.{js,css}\" \"scripts/*.mjs\" \"tests/*.js\" \"*.{json,html,md}\" \"dist/index.html\" \"docs/*.md\" \".github/workflows/*.yml\"",
-    "dev": "vite"
+    "format": "prettier --write \"src/*.{js,css}\" \"scripts/*.mjs\" \"tests/*.js\" \"*.{json,html,md}\" \"dist/index.html\" \"docs/*.md\" \".github/workflows/*.yml\"",
+    "dev": "vite",
+    "build": "node scripts/build.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
