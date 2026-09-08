@@ -1,0 +1,12 @@
+# Optional mock API; the GitHub Pages website does not need this service.
+services:
+  mock-api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped

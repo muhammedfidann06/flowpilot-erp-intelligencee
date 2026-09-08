@@ -1,0 +1,20 @@
+FlowPilot 1.0.1 — 2026-09-08
+
+Clean npm ci: passed
+Static validation: passed
+Documentation links: passed
+
+Node test runner:
+ℹ tests 194
+ℹ suites 0
+ℹ pass 194
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7159.742174
+
+Python unittest: 4 tests, OK
+Total: 198 passed, 0 failed
+
+Browser scope and limitations: TESTING.md
